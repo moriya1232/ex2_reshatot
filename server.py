@@ -52,13 +52,15 @@ def main():
                     if connection == "close":
                         return_the_connection = ":"
                         client_connection.close()
-                    elif connection == "keep-alive":
-                        x=5
+                        break
                 else:
                     break
+
+                #TODO: remove:
                 break
         finally:
             client_connection.close()
+        # TODO: remove:
         break
 
 
