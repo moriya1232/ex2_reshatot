@@ -3,7 +3,6 @@ import sys
 import os
 
 
-
 def main():
     # tcp socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -49,9 +48,7 @@ def main():
                         response = "HTTP/1.1 404 Not Found\r\nConnection: close\r\n\r\n".encode()
                         connection = "close"
                     client_connection.send(response)
-                    #TODO: לבדוק מה זה נקרא בקשות ריקות
-                    if connection == "close" or connection == "" or length == 0:
-                        return_the_connection = ":"
+                    if connection == "close" or connection == "" or length == 0 or is_empty_request(client_sent):
                         client_connection.close()
                         break
                 else:
@@ -65,7 +62,10 @@ def main():
         break
 
 
-
+def is_empty_request(s):
+    if len(s.replace('\r\n', '').replace('\n', '').replace(' ', '')) == 0:
+        return True
+    return False
 
 if __name__ == "__main__":
     main()
