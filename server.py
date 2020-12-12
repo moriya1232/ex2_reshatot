@@ -11,7 +11,6 @@ def main():
     sock.listen(1)
     next_request = ""
     while True:
-        print("new client!!!!!")
         client_connection, client_address = sock.accept()
         try:
             # care about the client until its done
@@ -22,17 +21,18 @@ def main():
                 while True:
                      client_connection.settimeout(10.0)
                      got_now = client_connection.recv(1024).decode()
+                     print(got_now, end="")
                      index = got_now.find("\r\n\r\n")
                      if index != -1:
                          this_message = got_now[:index + len("\r\n\r\n")]
                          next_message = got_now[index + len("\r\n\r\n"):]
-                         print("this message: " + this_message)
-                         print("next message: " + next_message)
+
                          client_sent += this_message
                          next_request = next_message
                          break
                      else:
                          client_sent += got_now
+
                 if client_sent:
                     client_sent_lines = client_sent.split('\n')
                     file_name = client_sent_lines[0].split()[1]
