@@ -19,7 +19,7 @@ def main():
                 client_sent = next_request
                 #client_sent = client_connection.recv(1024).decode()
                 while True:
-                     client_connection.settimeout(10.0)
+                     client_connection.settimeout(1.0)
                      got_now = client_connection.recv(1024).decode()
                      print(got_now, end="")
                      index = got_now.find("\r\n\r\n")
